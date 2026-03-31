@@ -105,8 +105,8 @@ export default function Navbar() {
         to="/dashboard"
         className="text-xl font-bold text-blue-600 dark:text-blue-400 tracking-tight flex items-center gap-2"
       >
-        <span className="bg-blue-600 dark:bg-blue-500 text-white px-2 py-0.5 rounded-lg text-sm font-extrabold">EDU</span>
-        Platform
+        <span className="bg-blue-600 dark:bg-blue-500 text-white px-2 py-0.5 rounded-lg text-sm font-extrabold">A3</span>
+        Edu
       </Link>
 
       {/* Right Side */}
