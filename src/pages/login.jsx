@@ -148,43 +148,43 @@ export default function Login() {
   const { setUser } = useAuth();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!email.trim() || !password.trim()) {
-      showError("Please enter your email and password");
-      return;
-    }
+  if (!email.trim() || !password.trim()) {
+    showError("Please enter your email and password");
+    return;
+  }
 
-    setLoading(true);
-    const toastId = showLoading("Logging in...");
+  setLoading(true);
+  const toastId = showLoading("Logging in...");
 
-    try {
-      const res = await axios.post(
-        "/auth/login",
-        { email: email.trim(), password },
-        { withCredentials: true }
-      );
+  try {
+    const res = await axios.post(
+      "/auth/login",
+      { email: email.trim(), password },
+      { withCredentials: true }
+    );
 
-      localStorage.setItem("token", res.data.accessToken);
+    const token = res.data.accessToken;
+    const user = res.data.user;
 
-      const meRes = await axios.get("/auth/me", { withCredentials: true });
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
 
-      setUser(meRes.data.user);
-      localStorage.setItem("user", JSON.stringify(meRes.data.user));
+    dismissToast(toastId);
+    showSuccess("Welcome back 👋");
 
-      dismissToast(toastId);
-      showSuccess("Welcome back 👋");
-
-      if (meRes.data.user.role === "admin") navigate("/admin");
-      else navigate("/dashboard");
-    } catch (err) {
-      dismissToast(toastId);
-      showError(err.response?.data?.message || "Invalid email or password");
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    if (user.role === "admin") navigate("/admin");
+    else navigate("/dashboard");
+  } catch (err) {
+    dismissToast(toastId);
+    showError(err.response?.data?.message || "Invalid email or password");
+    console.log("LOGIN ERROR:", err.response?.data || err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div
