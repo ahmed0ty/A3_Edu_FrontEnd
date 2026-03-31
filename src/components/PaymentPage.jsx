@@ -288,7 +288,7 @@ export default function PaymentPage() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        "http://localhost:3000/enrollments/confirm-payment",
+        "https://a3-edu.onrender.com/enrollments/confirm-payment",
         {
           method: "POST",
           headers: {

@@ -1,7 +1,7 @@
 // import axios from "axios";
 
 // const instance = axios.create({
-//   baseURL: "http://localhost:3000",
+//   baseURL: "https://a3-edu.onrender.com",
 //   withCredentials: true, // مهم لو refresh token على كوكي
 // });
 
@@ -22,7 +22,7 @@
 //       try {
 //         // جلب access token جديد
 //         const res = await axios.post(
-//           "http://localhost:3000/auth/refresh",
+//           "https://a3-edu.onrender.com/auth/refresh",
 //           {}, // body فاضي لو كوكي
 //           { withCredentials: true }
 //         );
@@ -55,7 +55,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://a3-edu.onrender.com",
   withCredentials: true,
 });
 
@@ -75,7 +75,7 @@ instance.interceptors.response.use(
 
       try {
         const res = await axios.post(
-          "http://localhost:3000/auth/refresh",
+          "https://a3-edu.onrender.com/auth/refresh",
           {},
           { withCredentials: true }
         );

@@ -22,7 +22,7 @@ const [courseTitle, setCourseTitle] = useState("");
   useEffect(() => {
     const fetchCourseInstructor = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/courses/${courseId}`, {
+        const res = await fetch(`https://a3-edu.onrender.com/courses/${courseId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -43,7 +43,7 @@ const [courseTitle, setCourseTitle] = useState("");
       try {
         setLoading(true);
         const res = await fetch(
-          `http://localhost:3000/enrollments/course/${courseId}/enrollments`,
+          `https://a3-edu.onrender.com/enrollments/course/${courseId}/enrollments`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -65,7 +65,7 @@ const [courseTitle, setCourseTitle] = useState("");
   const handleApproval = async (enrollmentId, status) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/enrollments/${enrollmentId}/status`,
+        `https://a3-edu.onrender.com/enrollments/${enrollmentId}/status`,
         {
           method: "PUT",
           headers: {

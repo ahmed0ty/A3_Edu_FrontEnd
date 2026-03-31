@@ -657,7 +657,7 @@ export default function LessonComments({ lessonId, lesson }) {
 
   // ================= SOCKET INIT =================
   useEffect(() => {
-    socketRef.current = io("http://localhost:3000");
+    socketRef.current = io("https://a3-edu.onrender.com");
 
     return () => {
       socketRef.current?.disconnect();
