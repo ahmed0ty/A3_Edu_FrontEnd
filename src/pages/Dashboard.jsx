@@ -739,6 +739,10 @@ setUser(newUser);
 
     socket.on("connect", handleConnect);
     socket.on("courseUpdated", handleCourseUpdated);
+    socket.on("course:created", async () => {
+  const res = await axios.get("/courses");
+  setCourses(Array.isArray(res.data?.data) ? res.data.data : []);
+});
     socket.on("course:deleted", handleCourseDeleted);
     socket.on("instructorRequestUpdated", handleInstructorRequestUpdated);
     socket.on("paymentCompleted", handlePaymentCompleted);
@@ -747,6 +751,7 @@ setUser(newUser);
     return () => {
       socket.off("connect", handleConnect);
       socket.off("courseUpdated", handleCourseUpdated);
+      socket.off("course:created");
       socket.off("course:deleted", handleCourseDeleted);
       socket.off("instructorRequestUpdated", handleInstructorRequestUpdated);
       socket.off("paymentCompleted", handlePaymentCompleted);
@@ -757,7 +762,7 @@ setUser(newUser);
   // ================= REQUEST =================
   const handleSubmitRequest = async (e) => {
     e.preventDefault();
-    console.log("🔥 handleSubmitRequest called", { fullName, file }); // أضف ده
+
 
     if (!fullName.trim()) {
       showToast("Please enter your full name", "error");
@@ -775,7 +780,7 @@ setUser(newUser);
   const formData = new FormData();
   formData.append("file", file);
   formData.append("fullName", fullName.trim());
-console.log("📤 Sending request..."); // أضف ده
+
   await axios.post("/auth/request-instructor", formData);
 
   showToast("Request sent successfully", "success");
