@@ -586,7 +586,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import socket from "../socket";
 import { Spinner } from "../components/Spinner";
-
+import { useAuth } from "../context/AuthContext";
 export default function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [quizzes, setQuizzes] = useState([]);
@@ -605,13 +605,7 @@ export default function Dashboard() {
 
   const token = localStorage.getItem("token") || "";
 
-  const [user, setUser] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("user"));
-    } catch {
-      return null;
-    }
-  });
+const { user, setUser } = useAuth();
 
   const [requestStatus, setRequestStatus] = useState(
     user?.instructorRequestStatus || "none"
@@ -788,8 +782,8 @@ export default function Dashboard() {
         instructorRequestStatus: "pending",
       };
 
-      localStorage.setItem("user", JSON.stringify(updatedUser));
-      setUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
+setUser(newUser);
       setRequestStatus("pending");
       setShowForm(false);
       setFile(null);
@@ -1049,8 +1043,8 @@ export default function Dashboard() {
                           rejectionReason: null,
                         };
 
-                        localStorage.setItem("user", JSON.stringify(updatedUser));
-                        setUser(updatedUser);
+                       localStorage.setItem("user", JSON.stringify(newUser));
+setUser(newUser);
                         setRequestStatus("none");
                         showToast("Continuing as student", "success");
                       } catch (err) {
