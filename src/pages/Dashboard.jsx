@@ -703,9 +703,9 @@ const { user, setUser } = useAuth();
           }),
         };
 
-        localStorage.setItem("user", JSON.stringify(newUser));
-        setRequestStatus(updatedUser.instructorRequestStatus);
-        setUser(newUser);
+      setRequestStatus(updatedUser.instructorRequestStatus);
+setUser(newUser);
+
       }
     };
 
@@ -1039,8 +1039,7 @@ const { user, setUser } = useAuth();
                           rejectionReason: null,
                         };
 
-                       localStorage.setItem("user", JSON.stringify(newUser));
-setUser(newUser);
+setUser(updatedUser);
                         setRequestStatus("none");
                         showToast("Continuing as student", "success");
                       } catch (err) {
