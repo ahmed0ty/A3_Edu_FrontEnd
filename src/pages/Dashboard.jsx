@@ -766,34 +766,27 @@ const { user, setUser } = useAuth();
     }
 
     try {
-      setIsSubmitting(true);
+  setIsSubmitting(true);
 
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("fullName", fullName.trim());
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("fullName", fullName.trim());
 
-      await axios.post("/auth/request-instructor", formData);
+  await axios.post("/auth/request-instructor", formData);
 
-      socket.emit("instructorRequest:new");
-      showToast("Request sent successfully", "success");
+  showToast("Request sent successfully", "success");
 
-      const updatedUser = {
-        ...user,
-        instructorRequestStatus: "pending",
-      };
-
-      localStorage.setItem("user", JSON.stringify(newUser));
-setUser(newUser);
-      setRequestStatus("pending");
-      setShowForm(false);
-      setFile(null);
-      setFullName("");
-    } catch (err) {
-      console.error(err);
-      showToast(err.response?.data?.message || "Something went wrong", "error");
-    } finally {
-      setIsSubmitting(false);
-    }
+  setUser({ ...user, instructorRequestStatus: "pending" });
+  setRequestStatus("pending");
+  setShowForm(false);
+  setFile(null);
+  setFullName("");
+} catch (err) {
+  console.error(err);
+  showToast(err.response?.data?.message || "Something went wrong", "error");
+} finally {
+  setIsSubmitting(false);
+}
   };
 
   // ================= DELETE COURSE =================
