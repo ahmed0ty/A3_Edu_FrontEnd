@@ -775,7 +775,7 @@ setUser(newUser);
   const formData = new FormData();
   formData.append("file", file);
   formData.append("fullName", fullName.trim());
-
+console.log("📤 Sending request..."); // أضف ده
   await axios.post("/auth/request-instructor", formData);
 
   showToast("Request sent successfully", "success");
