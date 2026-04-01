@@ -604,6 +604,9 @@ export default function Dashboard() {
   const fileInputRef = useRef(null);
 
   const token = localStorage.getItem("token") || "";
+  useEffect(() => {
+  axios.get("/").catch(() => {});
+}, []);
 
 const { user, setUser } = useAuth();
 
