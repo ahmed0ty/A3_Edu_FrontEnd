@@ -739,9 +739,14 @@ setUser(newUser);
 
     socket.on("connect", handleConnect);
     socket.on("courseUpdated", handleCourseUpdated);
-    socket.on("course:created", async () => {
-  const res = await axios.get("/courses");
-  setCourses(Array.isArray(res.data?.data) ? res.data.data : []);
+socket.on("course:created", async () => {
+  try {
+    const res = await axios.get("/courses");
+    console.log("🔥 course:created event, new courses:", res.data?.data?.length);
+    setCourses(Array.isArray(res.data?.data) ? res.data.data : []);
+  } catch (err) {
+    console.error("❌ fetch after course:created failed:", err);
+  }
 });
     socket.on("course:deleted", handleCourseDeleted);
     socket.on("instructorRequestUpdated", handleInstructorRequestUpdated);
