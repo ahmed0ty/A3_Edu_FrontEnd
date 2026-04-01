@@ -71,31 +71,29 @@ instance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+  originalRequest._retry = true;
 
-      try {
-        const res = await axios.post(
-          "https://a3-edu.onrender.com/auth/refresh",
-          {},
-          { withCredentials: true }
-        );
+  try {
+    const res = await axios.post(
+      "https://a3-edu.onrender.com/auth/refresh",
+      {},
+      { withCredentials: true }
+    );
 
-        const newToken = res.data.accessToken;
-        localStorage.setItem("token", newToken);
+    const newToken = res.data.accessToken;
+    localStorage.setItem("token", newToken);
 
-        // ✅ حدّث الـ instance والـ originalRequest
-        instance.defaults.headers.Authorization = `Bearer ${newToken}`;
-        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+    instance.defaults.headers.Authorization = `Bearer ${newToken}`;
+    originalRequest.headers.Authorization = `Bearer ${newToken}`;
 
-        // ✅ استخدم instance مش axios العادي
-        return instance(originalRequest);
-      } catch (err) {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        window.location.href = "/";
-        return Promise.reject(err);
-      }
-    }
+    return instance(originalRequest);
+  } catch (err) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/";
+    return Promise.reject(err);
+  }
+}
 
     return Promise.reject(error);
   }
